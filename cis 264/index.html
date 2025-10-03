@@ -1,1 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Canyon Kayak Rentals - Mobile Booking</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        /* ... (CSS is unchanged from the last version, removed for brevity) ... */
+        body {font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;background: #eef2f7;margin: 0;padding: 0;overflow-x: hidden;}
+        main {max-width: 400px;margin: 0 auto;min-height: 100vh;background: white;box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);position: relative;z-index: 1;transition: transform 0.3s ease-in-out;}
+        .banner {display: flex;justify-content: space-between;align-items: center;padding: 15px 20px;background: #0077b6;color: white;box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);}
+        .logo-container {display: flex;align-items: center;}
+        .logo-placeholder {width: 30px;height: 30px;background-image: url('logo.png');background-size: cover;background-position: center;background-color: transparent;border-radius: 5px;margin-right: 10px;}
+        .company-name {font-size: 18px;font-weight: 600;letter-spacing: 0.5px;}
+        .menu-icon {font-size: 30px;cursor: pointer;color: white;padding: 5px;border-radius: 4px;transition: background 0.2s;}
+        .booking-form {padding: 30px 20px 10px;}
+        .booking-form h2 {font-size: 24px;color: #1a252f;margin-top: 0;margin-bottom: 30px;text-align: center;}
+        .form-group {margin-bottom: 25px;}
+        label {display: block;font-size: 14px;font-weight: 600;margin-bottom: 10px;color: #4a4e69;}
+        select, input[type="date"], input[type="number"] {width: 100%;padding: 14px 12px;font-size: 16px;border: 1px solid #ccc;border-radius: 8px;box-sizing: border-box;background-color: #f9f9f9;transition: border-color 0.3s, box-shadow 0.3s;}
+        select:focus, input:focus {border-color: #0077b6;box-shadow: 0 0 0 3px rgba(0, 119, 182, 0.2);outline: none;}
+        button {width: 100%;padding: 16px;background: #00b4d8;color: white;border: none;border-radius: 8px;font-size: 18px;font-weight: 700;cursor: pointer;margin-top: 30px;box-shadow: 0 5px 15px rgba(0, 180, 216, 0.4);transition: background 0.3s, transform 0.1s;}
+        button:hover {background: #0098b9;}
+        button:active {transform: translateY(1px);}
+        .info-section {padding: 20px;margin-top: 20px;border-top: 1px solid #eee;}
+        .info-section h3 {color: #1a252f;font-size: 18px;margin-bottom: 15px;}
+        .info-box {background: #f0f8ff;border: 1px solid #cceeff;border-left: 5px solid #0077b6;padding: 15px;margin-bottom: 15px;border-radius: 5px;}
+        .info-box h4 {margin-top: 0;font-size: 16px;color: #0077b6;}
+        .info-box p {font-size: 14px;line-height: 1.4;color: #555;margin: 5px 0 0;}
+        .side-menu {position: fixed;top: 0;right: 0;height: 100%;width: 250px;background-color: #333;color: white;padding: 20px;box-shadow: -5px 0 15px rgba(0,0,0,0.4);transform: translateX(100%);transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);z-index: 10;}
+        .side-menu.open {transform: translateX(0);}
+        .close-btn {font-size: 40px;color: #ddd;text-align: right;cursor: pointer;}
+        .side-menu ul {list-style: none;padding: 0;margin-top: 40px;}
+        .side-menu ul li {margin-bottom: 18px;border-bottom: 1px solid rgba(255, 255, 255, 0.1);padding-bottom: 5px;}
+        .side-menu ul li a {color: #ddd;text-decoration: none;font-size: 16px;display: block;}
+    </style>
+</head>
+<body>
 
+    <div class="banner">
+        <div class="logo-container">
+            <div class="logo-placeholder"></div>
+            <span class="company-name">Canyon Kayak Rentals</span>
+        </div>
+        <div class="menu-icon" onclick="toggleMenu()">&#x2261;</div> 
+    </div>
+
+    <main>
+        <div class="booking-form">
+            <h2>Start Your Adventure!</h2>
+
+            <div class="form-group">
+                <label for="people">How Many People on the Water?</label>
+                <input type="number" id="people" min="1" placeholder="e.g. 4 people">
+            </div>
+
+            <div class="form-group">
+                <label for="date">Date (Based on Availability)</label>
+                <input type="date" id="date">
+            </div>
+
+            <div class="form-group">
+                <label for="rental-type">Rental Duration</label>
+                <select id="rental-type">
+                    <option value="full">Full Day Rental (8 Hours)</option>
+                    <option value="half">Half Day Rental (6 Hours)</option>
+                    <option value="4hrs">4 Hours Rental</option>
+                </select>
+            </div>
+
+            <button>Display Boats</button>
+        </div>
+
+        <div class="info-section">
+            <h3>Boat Facts & Details</h3>
+
+            <div class="info-box">
+                <h4>Kayak (Single)</h4>
+                <p>Perfect for solo exploration and speed. Ideal for experienced paddlers or quiet water conditions. Lightweight and easy to maneuver.</p>
+            </div>
+
+            <div class="info-box">
+                <h4>Tandem Kayak (Double)</h4>
+                <p>Great for couples, families, or beginners. Highly stable and allows for shared paddling effort. <strong>Capacity: 2 adults + 1 small child.</strong></p>
+            </div>
+
+            <div class="info-box">
+                <h4>Raft</h4>
+                <p>Our most stable and largest option for groups of <strong>4-8 people</strong>. Excellent for families and carrying substantial gear. Suitable for all skill levels.</p>
+            </div>
+        </div>
+    </main>
+    
+    <div class="side-menu" id="sideMenu">
+        <div class="close-btn" onclick="toggleMenu()">&times;</div>
+        <ul>
+            <li><a href="profile.html">Welcome, Name / My Profile</a></li> 
+            <li><a href="profile.html">No Upcoming Reservations</a></li>
+            <li><a href="profile.html">Edit User Profile & Billing</a></li> 
+            <li><a href="#">Make New Reservation</a></li> 
+            <li><a href="profile.html">Past Reservations</a></li> 
+        </ul>
+    </div>
+
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById('sideMenu');
+            menu.classList.toggle('open');
+        }
+    </script>
+
+</body>
+</html>
