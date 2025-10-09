@@ -1,0 +1,88 @@
+/* 
+  Emre Jenedi
+  Date: 10/08/2025
+*/
+
+
+    html {
+      color: black;
+      font-family: sans-serif;
+    }
+
+    body {
+      margin: 0;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: black;
+      background: linear-gradient(180deg, #fdfcfb 0%, #e2d1c3 100%);
+    }
+
+    h1 {
+      text-shadow: 10px 10px 0 rgba(0, 0, 0, 1);
+      font-size: 100px;
+      user-select: none;
+      transition: text-shadow 0.1s ease;
+    }
+
+    .sun, .moon {
+      position: absolute;
+      width: 100px;
+      height: 100px;
+      pointer-events: none;
+      transform: translate(-50%, -50%) scale(1);
+      transition: opacity 0.3s ease-out, transform 1s ease-out;
+      opacity: 1;
+    }
+
+    .counter {
+      position: fixed;
+      top: 20px;
+      right: 30px;
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 12px;
+      padding: 10px 20px;
+      font-size: 22px;
+      font-weight: bold;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      user-select: none;
+      transition: transform 0.2s;
+    }
+
+    .counter.bump {
+      transform: scale(1.3);
+    }
+
+    .mode-toggle,
+    .reset-btn {
+      position: fixed;
+      right: 30px;
+      background: #fff;
+      border: none;
+      border-radius: 12px;
+      padding: 10px 20px;
+      font-size: 18px;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      transition: background 0.2s;
+    }
+
+    .mode-toggle:hover,
+    .reset-btn:hover {
+      background: #f0f0f0;
+    }
+
+    .mode-toggle {
+      top: 70px;
+    }
+
+    .reset-btn {
+      top: 120px;
+    }
+  
