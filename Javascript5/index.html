@@ -1,8 +1,14 @@
+<!--
+  Emre Jenedi
+  Date: 10/22/2025
+-->
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>🎨 Follow Along Nav — JS2 Final Project</title>
+  <title>🎨 Follow Along the Highlight</title>
   <link rel="stylesheet" href="style.css">
   <link rel="icon" href="https://fav.farm/✅" />
 
@@ -62,90 +68,7 @@
     <button id="toggleHighlight" class="toggle-btn active">Highlight: ON</button>
   </div>
 
-  <script>
-const triggers = document.querySelectorAll('a');
-const highlight = document.createElement('span');
-highlight.classList.add('highlight');
-document.body.appendChild(highlight);
-
-let highlightEnabled = true;
-let currentColor = '#ffffff';
-
-function highlightLink() {
-  if (!highlightEnabled) return;
-  const linkCoords = this.getBoundingClientRect();
-  highlight.style.width = `${linkCoords.width}px`;
-  highlight.style.height = `${linkCoords.height}px`;
-  highlight.style.transform = `translate(${linkCoords.left + window.scrollX}px, ${linkCoords.top + window.scrollY}px)`;
-  highlight.style.background = currentColor;
-}
-
-triggers.forEach(a => {
-  a.addEventListener('mouseenter', highlightLink);
-  a.addEventListener('click', e => {
-    e.preventDefault();
-    const section = a.dataset.section;
-    let content = '';
-    if(section === 'home'){
-      content = '<p>Welcome to the Home section!</p>';
-    } else if(section === 'order'){
-      content = '<p>Check your order status here.</p>';
-    } else if(section === 'tweets'){
-      content = '<p>Read the latest tweets.</p>';
-    } else if(section === 'history'){
-      content = '<p>Discover our company history.</p>';
-    } else if(section === 'contact'){
-      content = '<p>Contact us through this page.</p>';
-    }
-    document.getElementById('content').innerHTML = content;
-  });
-});
-
-const toggleBtn = document.getElementById('toggleHighlight');
-toggleBtn.addEventListener('click', () => {
-  highlightEnabled = !highlightEnabled;
-  toggleBtn.textContent = highlightEnabled ? 'Highlight: ON' : 'Highlight: OFF';
-  toggleBtn.classList.toggle('active', highlightEnabled);
-  highlight.style.display = highlightEnabled ? 'block' : 'none';
-});
-
-document.getElementById('highlightColor').addEventListener('input', e => {
-  currentColor = e.target.value;
-  highlight.style.background = currentColor;
-});
-
-document.querySelectorAll('.highlight-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    currentColor = btn.dataset.color;
-    highlight.style.background = currentColor;
-  });
-});
-
-document.getElementById('bgColor').addEventListener('input', e => setBackground(e.target.value));
-document.querySelectorAll('.bg-btn').forEach(btn => btn.addEventListener('click', () => setBackground(btn.dataset.color)));
-
-function setBackground(color){
-  document.body.style.background = `
-    linear-gradient(45deg, ${color} 0%, transparent 70%),
-    linear-gradient(135deg, ${color} 10%, transparent 80%),
-    linear-gradient(225deg, ${color} 10%, transparent 80%),
-    linear-gradient(315deg, ${color} 100%, transparent 70%)
-  `;
-}
-
-function randomColor(){
-  const h = Math.floor(Math.random() * 360);
-  const s = 70 + Math.random() * 20;
-  const l = 60 + Math.random() * 20;
-  return `hsl(${h}, ${s}%, ${l}%)`;
-}
-
-function randomBackground(){
-  setBackground(randomColor());
-}
-
-document.getElementById('randomBg').addEventListener('click', randomBackground);
-</script>
+  <script src="script.js"></script>
 
 </body>
 </html>
