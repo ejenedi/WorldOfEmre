@@ -1,1 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>🎨 Follow Along Nav — JS2 Final Project</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="https://fav.farm/✅" />
 
+</head>
+<body>
+
+  <nav>
+    <ul class="menu">
+      <li><a href="">Home</a></li>
+      <li><a href="">Order Status</a></li>
+      <li><a href="">Tweets</a></li>
+      <li><a href="">Read Our History</a></li>
+      <li><a href="">Contact Us</a></li>
+    </ul>
+  </nav>
+
+  <div class="wrapper">
+    <p>Lorem ipsum dolor sit amet, <a href="">consectetur</a> adipisicing elit. Est <a href="">explicabo</a> unde natus necessitatibus esse obcaecati distinctio, aut itaque, qui vitae!</p>
+    <p>Aspernatur sapiente quae sint <a href="">soluta</a> modi, atque praesentium laborum pariatur earum <a href="">quaerat</a> cupiditate consequuntur facilis ullam dignissimos, aperiam quam veniam.</p>
+    <p>Cum ipsam quod, incidunt sit ex <a href="">tempore</a> placeat maxime <a href="">corrupti</a> possimus <a href="">veritatis</a> ipsum fugit recusandae est doloremque? Hic, <a href="">quibusdam</a>, nulla.</p>
+    <p>Esse quibusdam, ad, ducimus cupiditate <a href="">nulla</a>, quae magni odit <a href="">totam</a> ut consequatur eveniet sunt quam provident sapiente dicta neque quod.</p>
+    <p>Aliquam <a href="">dicta</a> sequi culpa fugiat <a href="">consequuntur</a> pariatur optio ad minima, maxime <a href="">odio</a>, distinctio magni impedit tempore enim repellendus <a href="">repudiandae</a> quas!</p>
+  </div>
+
+  <div class="controls">
+    <h3>🎛️ Controls</h3>
+
+    <!-- Highlight Section -->
+    <section>
+      <div class="color-picker">
+        <label>Highlight:</label>
+        <input type="color" id="highlightColor" value="#ffffff">
+      </div>
+      <div class="color-set">
+        <button class="highlight-btn" data-color="red" style="background:red;">Red</button>
+        <button class="highlight-btn" data-color="blue" style="background:blue;">Blue</button>
+        <button class="highlight-btn" data-color="green" style="background:green;">Green</button>
+        <button class="highlight-btn" data-color="yellow" style="background:gold;color:black;">Yellow</button>
+      </div>
+    </section>
+
+    <!-- Background Section -->
+    <section>
+      <div class="color-picker">
+        <label>Background:</label>
+        <input type="color" id="bgColor" value="#ffcc00">
+      </div>
+      <div class="color-set">
+        <button class="bg-btn" data-color="lightblue" style="background:lightblue;color:black;">Blue</button>
+        <button class="bg-btn" data-color="lightgreen" style="background:lightgreen;color:black;">Green</button>
+        <button class="bg-btn" data-color="lightcoral" style="background:lightcoral;">Red</button>
+        <button class="bg-btn" data-color="lightpink" style="background:lightpink;color:black;">Pink</button>
+      </div>
+    </section>
+
+    <button id="randomBg">🌈 Random Background</button>
+    <button id="toggleHighlight" class="toggle-btn active">Highlight: ON</button>
+  </div>
+
+  <script>
+const triggers = document.querySelectorAll('a');
+const highlight = document.createElement('span');
+highlight.classList.add('highlight');
+document.body.appendChild(highlight);
+
+let highlightEnabled = true;
+let currentColor = '#ffffff';
+
+function highlightLink() {
+  if (!highlightEnabled) return;
+  const linkCoords = this.getBoundingClientRect();
+  highlight.style.width = `${linkCoords.width}px`;
+  highlight.style.height = `${linkCoords.height}px`;
+  highlight.style.transform = `translate(${linkCoords.left + window.scrollX}px, ${linkCoords.top + window.scrollY}px)`;
+  highlight.style.background = currentColor;
+}
+
+triggers.forEach(a => {
+  a.addEventListener('mouseenter', highlightLink);
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    const section = a.dataset.section;
+    let content = '';
+    if(section === 'home'){
+      content = '<p>Welcome to the Home section!</p>';
+    } else if(section === 'order'){
+      content = '<p>Check your order status here.</p>';
+    } else if(section === 'tweets'){
+      content = '<p>Read the latest tweets.</p>';
+    } else if(section === 'history'){
+      content = '<p>Discover our company history.</p>';
+    } else if(section === 'contact'){
+      content = '<p>Contact us through this page.</p>';
+    }
+    document.getElementById('content').innerHTML = content;
+  });
+});
+
+const toggleBtn = document.getElementById('toggleHighlight');
+toggleBtn.addEventListener('click', () => {
+  highlightEnabled = !highlightEnabled;
+  toggleBtn.textContent = highlightEnabled ? 'Highlight: ON' : 'Highlight: OFF';
+  toggleBtn.classList.toggle('active', highlightEnabled);
+  highlight.style.display = highlightEnabled ? 'block' : 'none';
+});
+
+document.getElementById('highlightColor').addEventListener('input', e => {
+  currentColor = e.target.value;
+  highlight.style.background = currentColor;
+});
+
+document.querySelectorAll('.highlight-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    currentColor = btn.dataset.color;
+    highlight.style.background = currentColor;
+  });
+});
+
+document.getElementById('bgColor').addEventListener('input', e => setBackground(e.target.value));
+document.querySelectorAll('.bg-btn').forEach(btn => btn.addEventListener('click', () => setBackground(btn.dataset.color)));
+
+function setBackground(color){
+  document.body.style.background = `
+    linear-gradient(45deg, ${color} 0%, transparent 70%),
+    linear-gradient(135deg, ${color} 10%, transparent 80%),
+    linear-gradient(225deg, ${color} 10%, transparent 80%),
+    linear-gradient(315deg, ${color} 100%, transparent 70%)
+  `;
+}
+
+function randomColor(){
+  const h = Math.floor(Math.random() * 360);
+  const s = 70 + Math.random() * 20;
+  const l = 60 + Math.random() * 20;
+  return `hsl(${h}, ${s}%, ${l}%)`;
+}
+
+function randomBackground(){
+  setBackground(randomColor());
+}
+
+document.getElementById('randomBg').addEventListener('click', randomBackground);
+</script>
+
+</body>
+</html>
